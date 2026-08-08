@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: fit-chart-backend
+    env: python
+    plan: free
+    repo: "" # fill in by Render / leave blank when using dashboard
+    path: backend
+    # Use a stable Python runtime where binary wheels for pandas are available
+    runtime: python3.11
+    # Install build tooling and numpy first so pandas can use prebuilt wheels
+    buildCommand: "pip install --upgrade pip setuptools wheel numpy && pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+
+  - type: static
+    name: fit-chart-frontend
+    env: static
+    plan: free
+    repo: ""
+    path: frontend
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: "frontend/dist"
+
+# Notes:
+# - Replace `repo` with your repository URL or leave empty and connect via Render dashboard.
+# - Set environment variable `VITE_API_URL` on the frontend service to your backend URL (e.g. https://fit-chart-backend.onrender.com)
+# - The backend service uses the `backend` folder and will run the FastAPI app defined in backend/main.py

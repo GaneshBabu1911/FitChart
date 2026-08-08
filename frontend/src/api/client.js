@@ -4,7 +4,9 @@
  */
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8000/api";
+const BASE_URL = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/api`
+  : "http://localhost:8000/api";
 
 const apiClient = axios.create({
   baseURL: BASE_URL,
@@ -70,6 +72,8 @@ export const recommendSize = (data) =>
 
 /** Build full image URL from filename stored in DB */
 export const getImageUrl = (filename) =>
-  filename ? `http://localhost:8000/uploads/${filename}` : null;
+  filename
+    ? `${import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/$/, "") : "http://localhost:8000"}/uploads/${filename}`
+    : null;
 
 export default apiClient;
