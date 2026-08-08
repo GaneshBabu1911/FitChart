@@ -14,7 +14,8 @@ Steps
   - Backend (Web Service)
     - Root Directory: `backend`
     - Environment: `Python 3.11` (recommended)
-    - Build Command: `pip install --upgrade pip setuptools wheel numpy && pip install -r requirements.txt`
+    - Build Command: `pip install --upgrade pip setuptools wheel && pip install numpy==1.26.4 pandas==2.2.2 && pip install -r requirements.txt --no-deps`
+    - Note: This installs `numpy` and `pandas` first (binary wheels) to avoid building pandas from source on Render.
     - Start Command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
 
   - Frontend (Static Site)
