@@ -1,15 +1,11 @@
 services:
   - type: web
     name: fit-chart-backend
-    env: python
+    env: docker
     plan: free
     repo: "" # fill in by Render / leave blank when using dashboard
     path: backend
-    # Use a stable Python runtime where binary wheels for pandas are available
-    runtime: python3.11
-    # Install build tooling and numpy/pandas wheels first so pandas uses binary wheels
-    buildCommand: "pip install --upgrade pip setuptools wheel && pip install numpy==1.26.4 pandas==2.2.2 && pip install -r requirements.txt --no-deps"
-    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    dockerfilePath: backend/Dockerfile
 
   - type: static
     name: fit-chart-frontend
